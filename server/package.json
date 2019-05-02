@@ -1,0 +1,29 @@
+{
+  "name": "filmsnetwork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alessiodipasquale/fluttlix.git"
+  },
+  "author": "Alessio Di Pasquale, Samuele Simone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alessiodipasquale/fluttlix/issues"
+  },
+  "homepage": "https://github.com/alessiodipasquale/fluttlix#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mysql2": "^1.6.5",
+    "parse-db-uri": "^1.0.3",
+    "passport": "^0.4.0",
+    "sequelize": "^5.8.2",
+    "yargs": "^13.2.2"
+  }
+}
