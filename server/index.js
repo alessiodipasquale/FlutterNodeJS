@@ -7,21 +7,15 @@ const args = require('./config/yargs');
 const passport = require('passport');
 const router = require('./config/router');
 const database = require('./config/database');
-const config = require('./config/config');
 const sequelize = require('./config/sequelize');
-
-config(args);
 
 const hostname = 'localhost';
 const port = 3000;
 const distPath = path.join(__dirname, 'dist');
 
 const app = express();
-const redirect = express();
 
-let server;
-
-server = http.createServer(app);
+let server = http.createServer(app);
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -30,7 +24,7 @@ router.initialize(app, passport);
 
 database.initialize(args)
 .then(() => 
-  server.listen(port, hostname, () => {
+  server.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
   })
 );
