@@ -15,5 +15,5 @@ Map<int, Color> color =
 };
 
 
-MaterialColor accentColor = MaterialColor(0xFFe64236, color);
-MaterialColor backgroundColor = MaterialColor(0xFFf9cbdc,color);
+MaterialColor accentColor = MaterialColor(0xFF1d975c, color);
+MaterialColor backgroundColor = MaterialColor(0xFFc2feae,color);
