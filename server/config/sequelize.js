@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const parseDbUri = require('parse-db-uri');
 
-const dbParams = parseDbUri(MYSQL_URI="mysql://filmsnetwork:filmsnetworkpwd@localhost:3306/filmsnetwork");
+const dbParams = parseDbUri(process.env.MYSQL_URI);
 
 const sequelize = new Sequelize(dbParams.database, dbParams.user, dbParams.password, {
     host: dbParams.resource,

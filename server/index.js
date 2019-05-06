@@ -5,12 +5,21 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const args = require('./config/yargs');
 const passport = require('passport');
+const config = require('./config/config');
+
+config(args);
+
 const router = require('./config/router');
 const database = require('./config/database');
 const sequelize = require('./config/sequelize');
+const passportJwtStrategy = require('./auth/strategies/passportJwt');
 
-const hostname = 'localhost';
-const port = 3000;
+
+
+
+
+const hostname = process.env.hostname;
+const port = process.env.PORT;
 const distPath = path.join(__dirname, 'dist');
 
 const app = express();
@@ -20,6 +29,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/', express.static(distPath));
+
+
+passport.use(passportJwtStrategy);
+
 router.initialize(app, passport);
 
 database.initialize(args)
