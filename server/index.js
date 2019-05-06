@@ -26,6 +26,7 @@ const app = express();
 
 let server = http.createServer(app);
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded())
 app.use(cors());
 
 app.use('/', express.static(distPath));
