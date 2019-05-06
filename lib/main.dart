@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import './pages/login.dart';
+import './colors/colors.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,12 +14,13 @@ class MyApp extends StatelessWidget {
       title: 'Node server demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: accentColor,
       ),
-      home: Login()/*Scaffold(
+      home:
+        Scaffold(
         appBar: AppBar(title: Text('Flutter Client')),
         body: BodyWidget(),
-      ),*/
+      ),
     );
   }
 }
@@ -55,8 +57,8 @@ class BodyWidgetState extends State<BodyWidget> {
               RaisedButton(
                 child: Text('Send request to server'),
                 onPressed: () {
-                  //_makeGetRequest();
-                  Login();
+                  _makeGetRequest();
+
                 },
               ),
               Padding(
@@ -71,11 +73,16 @@ class BodyWidgetState extends State<BodyWidget> {
   }
 
   _makeGetRequest() async {
-    /*Response response = await get(_localhost(ip));
+    Response response = await get(_localhost(ip));
     setState(() {
       serverResponse = response.body;
-    });*/
+      _changePage();
+    });
+
   }
+  _changePage() => Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Login()));
 
   String _localhost(String iptext) {
     if (Platform.isAndroid)
