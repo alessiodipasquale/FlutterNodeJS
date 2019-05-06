@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import './pages/login.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,10 +15,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
+      home: Login()/*Scaffold(
         appBar: AppBar(title: Text('Flutter Client')),
         body: BodyWidget(),
-      ),
+      ),*/
     );
   }
 }
@@ -31,9 +32,11 @@ class BodyWidget extends StatefulWidget {
 
 class BodyWidgetState extends State<BodyWidget> {
   String serverResponse = 'Server response';
-
+  String ip;
+  
   @override
   Widget build(BuildContext context) {
+
 
     return Padding(
       padding: const EdgeInsets.all(32.0),
@@ -44,10 +47,16 @@ class BodyWidgetState extends State<BodyWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              TextField(
+                onChanged: (text) { 
+                  ip = text;
+                },
+              ),
               RaisedButton(
                 child: Text('Send request to server'),
                 onPressed: () {
-                  _makeGetRequest();
+                  //_makeGetRequest();
+                  Login();
                 },
               ),
               Padding(
@@ -62,16 +71,16 @@ class BodyWidgetState extends State<BodyWidget> {
   }
 
   _makeGetRequest() async {
-    Response response = await get(_localhost());
+    /*Response response = await get(_localhost(ip));
     setState(() {
       serverResponse = response.body;
-    });
+    });*/
   }
 
-  String _localhost() {
+  String _localhost(String iptext) {
     if (Platform.isAndroid)
-      return 'http://192.168.1.112:3000/login';
+      return 'http://$iptext:3000/login';
     else // for iOS simulator
-      return 'http://192.168.1.112:3000/login';
+      return 'http://$iptext:3000/login';
   }
 }

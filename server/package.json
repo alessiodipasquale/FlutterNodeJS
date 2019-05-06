@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node index",
-    "reset":"node index -r true",
-    "watch":"nodemon index"
+    "start": "node index",
+    "reset": "node index -r true",
+    "watch": "nodemon index"
   },
   "repository": {
     "type": "git",
