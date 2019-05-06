@@ -1,5 +1,5 @@
-name: video_game_message_board_app
-description: A video game message board app in Flutter
+name: FilmsNetwork
+description: A FilmsNetwork app in Flutter
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -55,10 +55,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: calibre
+       fonts:
+         - asset: fonts/calibre.ttf
+     - family: MaterialIcons
+       fonts:
+         - asset: fonts/MaterialIcons-Regular.ttf
+     - family: Mont
+       fonts:
+         - asset: fonts/Mont-Heavy.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
