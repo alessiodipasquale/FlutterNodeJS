@@ -34,6 +34,7 @@ class BodyWidget extends StatefulWidget {
 class BodyWidgetState extends State<BodyWidget> {
   TextEditingController _crtlEmail = TextEditingController();
   TextEditingController _crtlPassword = TextEditingController();
+  TextEditingController _ctrlIp = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   ApiProvider apiProvider = ApiProvider();
@@ -42,7 +43,7 @@ class BodyWidgetState extends State<BodyWidget> {
     if (_formKey.currentState.validate()) {
       try {
         var res =
-            await apiProvider.doLogin(_crtlEmail.text, _crtlPassword.text);
+            await apiProvider.doLogin(_crtlEmail.text, _crtlPassword.text,_ctrlIp.text);
         if (res.statusCode == 200) {
           var jsonRes = json.decode(res.body);
           var token = jsonRes['token'];
@@ -135,7 +136,7 @@ class BodyWidgetState extends State<BodyWidget> {
                                     style: TextStyle(
                                         fontSize: 15.0, color: accentColor),
                                     decoration: new InputDecoration(
-                                      labelText: "Enter Email",
+                                      labelText: "Inserisci Email",
                                       fillColor: accentColor,
                                     ),
                                   ),
@@ -167,13 +168,49 @@ class BodyWidgetState extends State<BodyWidget> {
                                               fontSize: 15.0,
                                               color: accentColor),
                                           decoration: new InputDecoration(
-                                            labelText: "Enter Password",
+                                            labelText: "Inserisci Password",
                                             fillColor: accentColor,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
+                                  Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        new TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Inserisci ip!';
+                                            }
+                                          },
+                                          controller: _ctrlIp,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: accentColor),
+                                          decoration: new InputDecoration(
+                                            labelText: "Inserisci IP",
+                                            fillColor: accentColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                                  ),
+                            
                                   Center(
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 16.0),

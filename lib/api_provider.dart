@@ -7,8 +7,7 @@ class ApiProvider {
 
   ApiProvider();
 
-  Future <http.Response> doLogin(String email, String password) async {
-    String ip = '192.168.1.72';
+  Future <http.Response> doLogin(String email, String password, String ip) async {
     String _url = 'http://$ip:3000/login';
 
     var body = {

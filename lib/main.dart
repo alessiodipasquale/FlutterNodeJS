@@ -16,11 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: accentColor,
       ),
-      home:
-        Scaffold(
-        appBar: AppBar(title: Text('Flutter Client')),
-        body: BodyWidget(),
-      ),
+      home: Login()
     );
   }
 }
