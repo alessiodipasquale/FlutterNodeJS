@@ -1,14 +1,12 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import './../colors/colors.dart';
 import './../api_provider.dart';
-import './../pages/home.dart';
-import '../pages/register.dart';
+import '../pages/login.dart';
+import 'dart:async';
+import 'dart:convert';
 
-class Login extends StatelessWidget {
-  const Login({Key key}) : super(key: key);
+class Register extends StatelessWidget {
+  const Register({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +16,7 @@ class Login extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: backgroundColor,
       ),
+      
       home: Scaffold(
         body: BodyWidget(),
       ),
@@ -33,6 +32,8 @@ class BodyWidget extends StatefulWidget {
 }
 
 class BodyWidgetState extends State<BodyWidget> {
+  TextEditingController _crtlName = TextEditingController();
+  TextEditingController _crtlSurname = TextEditingController();
   TextEditingController _crtlEmail = TextEditingController();
   TextEditingController _crtlPassword = TextEditingController();
   TextEditingController _ctrlIp = TextEditingController();
@@ -40,19 +41,12 @@ class BodyWidgetState extends State<BodyWidget> {
 
   ApiProvider apiProvider = ApiProvider();
 
-  Future doLogin() async {
-    if (_formKey.currentState.validate()) {
+  Future doRegistration() async {
+    if(_formKey.currentState.validate()) {
       try {
-        var res =
-            await apiProvider.doLogin(_crtlEmail.text, _crtlPassword.text,_ctrlIp.text);
-        if (res.statusCode == 200) {
-          var jsonRes = json.decode(res.body);
-          var token = jsonRes['token'];
-          print(token);
-          // TOKEN DA SALVARE NEGLI SHARED PREF
-
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
+        var res = await apiProvider.doRegistration(_crtlName.text,_crtlSurname.text,_crtlEmail.text,_crtlPassword.text,_ctrlIp.text);
+        if(res.statusCode == 200) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
         } else {
           print(res.statusCode);
         }
@@ -61,8 +55,6 @@ class BodyWidgetState extends State<BodyWidget> {
       }
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -130,14 +122,14 @@ class BodyWidgetState extends State<BodyWidget> {
                                   new TextFormField(
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Inserisci email!';
+                                        return 'Inserisci nome!';
                                       }
                                     },
-                                    controller: _crtlEmail,
+                                    controller: _crtlName,
                                     style: TextStyle(
                                         fontSize: 15.0, color: accentColor),
                                     decoration: new InputDecoration(
-                                      labelText: "Inserisci Email",
+                                      labelText: "Inserisci nome",
                                       fillColor: accentColor,
                                     ),
                                   ),
@@ -160,16 +152,16 @@ class BodyWidgetState extends State<BodyWidget> {
                                         new TextFormField(
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Inserisci password!';
+                                              return 'Inserisci cognome!';
                                             }
                                           },
-                                          controller: _crtlPassword,
-                                          obscureText: true,
+                                          controller: _crtlSurname,
+                                          
                                           style: TextStyle(
                                               fontSize: 15.0,
                                               color: accentColor),
                                           decoration: new InputDecoration(
-                                            labelText: "Inserisci Password",
+                                            labelText: "Inserisci cognome",
                                             fillColor: accentColor,
                                           ),
                                         ),
@@ -190,10 +182,63 @@ class BodyWidgetState extends State<BodyWidget> {
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
                                         new TextFormField(
+                                          
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Inserisci email!';
+                                            }
+                                          },
+                                          controller: _crtlEmail,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: accentColor),
+                                          decoration: new InputDecoration(
+                                            labelText: "Inserisci email",
+                                            fillColor: accentColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  new Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        new TextFormField(
+                                          
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Inserisci password!';
+                                            }
+                                          },
+                                          obscureText: true,
+                                          controller: _crtlPassword,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: accentColor),
+                                          decoration: new InputDecoration(
+                                            labelText: "Inserisci password",
+                                            fillColor: accentColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  new Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        new TextFormField(
                                           keyboardType: TextInputType.number,
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Inserisci ip!';
+                                              return 'Inserisci IP!';
                                             }
                                           },
                                           controller: _ctrlIp,
@@ -208,9 +253,11 @@ class BodyWidgetState extends State<BodyWidget> {
                                       ],
                                     ),
                                   ),
+                                  
                                 ],
                               ),
                                   ),
+                                  
                             
                                   Center(
                                     child: Padding(
@@ -219,38 +266,20 @@ class BodyWidgetState extends State<BodyWidget> {
                                         minWidth: 200.0,
                                         height: 50.0,
                                         child: RaisedButton(
-                                            onPressed: () => doLogin(),
-                                            child: const Text('LOGIN',
+                                            onPressed: () => doRegistration(),
+                                            child: const Text('REGISTRATI',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontFamily: 'calibre',
                                                     letterSpacing: 1.5,
-                                                    fontSize: 20)),
+                                                    fontSize: 18)),
                                             color: accentColor,
                                             shape: new RoundedRectangleBorder(
                                                 borderRadius:
                                                     new BorderRadius.circular(
                                                         10.0))),
                                       ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 16.0),
-                                      child:
-                                      new FlatButton(
-                                        onPressed: () => Navigator.push(context,  MaterialPageRoute(builder: (context) => Register())),
-                                        child: Text("Non sei registrato? Clicca qui",
-                                              textAlign: TextAlign.center,
-                                              style: new TextStyle(
-                                                fontSize: 13,
-                                                color: accentColor,
-                                                fontFamily: 'calibre',
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              )), 
-                                      )
                                     ),
                                   ),
                                 ],
@@ -268,6 +297,7 @@ class BodyWidgetState extends State<BodyWidget> {
         ),
       ),
     );
-    
   }
+
+
 }

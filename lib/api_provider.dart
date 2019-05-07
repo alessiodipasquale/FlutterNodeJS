@@ -18,5 +18,22 @@ class ApiProvider {
 
     return http.post(_url, body: body);
   }
+
+  Future <http.Response> doRegistration(String name, String surname,String email, String password, String ip) async {
+    String _url = 'http://$ip:3000/register';
+
+    print('arrivo');
+
+    var body = {
+      "name":name,
+      "surname":surname,
+      "email": email,
+      "password": password,
+      "isAdmin":"false"
+    };
+
+
+    return http.post(_url, body: body);
+  }
 }
 
