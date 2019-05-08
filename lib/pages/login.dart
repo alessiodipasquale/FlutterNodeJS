@@ -65,7 +65,7 @@ class BodyWidgetState extends State<BodyWidget> {
             var token = jsonRes['token'];
             prefs.setString("token", token);
 
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push( //pushReplacement
                 MaterialPageRoute(builder: (context) => HomePage()));
           } else {
             Scaffold.of(context).showSnackBar(error);

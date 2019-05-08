@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './../colors/colors.dart';
+import '../token_service.dart';
+import 'dart:convert';
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -31,8 +33,25 @@ class BodyWidget extends StatefulWidget {
 
 class BodyWidgetState extends State<BodyWidget> {
 
-  final String nome = "Alessio";
-  final String cognome = "Di Pasquale";
+  var nome;
+  var cognome;
+  
+  @override
+  void initState() {
+    super.initState();
+    getTokenData();
+ }
+
+ getTokenData() async{
+   TokenService tokenService = new TokenService();
+   tokenService.getDecodedToken()
+   .then( (decodedToken) => {
+     this.nome = decodedToken["name"],
+     this.cognome = decodedToken["surname"],
+    }
+   );
+ }
+
 
   @override
   Widget build(BuildContext context) {

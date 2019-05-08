@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './../colors/colors.dart';
 import './../api_provider.dart';
 import '../pages/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -40,19 +41,26 @@ class BodyWidgetState extends State<BodyWidget> {
   final success = SnackBar(content: Text('Login riuscito!'));
   final error = SnackBar(content: Text('Credenziali errate!'));
   final serverError = SnackBar(content: Text('Errore nel server!'));
+  final ipError = SnackBar(content: Text('Devi inserire un IP! Vai in impostazioni!'));
+
   final _formKey = GlobalKey<FormState>();
 
   ApiProvider apiProvider = ApiProvider();
 
   Future doRegistration() async {
+    final prefs = await SharedPreferences.getInstance();
+
+// Try reading data from the counter key. If it does not exist, return 0.
+    final ind = prefs.getString('indirizzo') ?? "";
     if (_formKey.currentState.validate()) {
+      if(ind != ""){
       try {
         var res = await apiProvider.doRegistration(
             _crtlName.text,
             _crtlSurname.text,
             _crtlEmail.text,
             _crtlPassword.text,
-            "192.168.1.72");
+            ind);
         if (res.statusCode == 200) {
           Scaffold.of(context).showSnackBar(success);
           Navigator.of(context).pushReplacement(
@@ -65,6 +73,9 @@ class BodyWidgetState extends State<BodyWidget> {
         print(err);
         Scaffold.of(context).showSnackBar(serverError);
       }
+    }
+    } else {
+      Scaffold.of(context).showSnackBar(ipError);
     }
   }
 
