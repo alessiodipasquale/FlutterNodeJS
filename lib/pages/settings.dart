@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 import 'dart:async';
 
+
+
 class Settings extends StatelessWidget {
   const Settings({Key key}) : super(key: key);
   @override
@@ -25,9 +27,13 @@ class Settings extends StatelessWidget {
 class WidgetCreation extends StatefulWidget {
   @override
   _WidgetCreationState createState() => _WidgetCreationState();
+  
 }
 
 class _WidgetCreationState extends State<WidgetCreation> {
+
+  
+  
   final _formKey = GlobalKey<FormState>();
   TextEditingController _ctrlIp = TextEditingController();
 
@@ -38,26 +44,31 @@ class _WidgetCreationState extends State<WidgetCreation> {
 
 
 
+
+
   _saveData() async {
-    SharedPreferences.setMockInitialValues({});
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
 // set value
     setState((){
       prefs.setString('indirizzo', _ctrlIp.text);
-
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }
     );
   }
 
-    Future<String> _loadData() async{
+    _loadData() async{
     final prefs = await SharedPreferences.getInstance();
-
-// Try reading data from the counter key. If it does not exist, return 0.
-    final ind = prefs.getString('indirizzo') ?? "";
-    return ind;
-
+    _ctrlIp.text = prefs.getString('indirizzo') ?? "";
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+ }
+  
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -172,3 +183,5 @@ class _WidgetCreationState extends State<WidgetCreation> {
     );
   }
 }
+
+
