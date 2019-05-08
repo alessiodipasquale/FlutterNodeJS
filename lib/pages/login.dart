@@ -38,236 +38,190 @@ class BodyWidgetState extends State<BodyWidget> {
   TextEditingController _ctrlIp = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  final success = SnackBar(content: Text('Login riuscito!'));
+  final error = SnackBar(content: Text('Credenziali errate!'));
+  final serverError = SnackBar(content: Text('Errore nel server!'));
+
   ApiProvider apiProvider = ApiProvider();
 
   Future doLogin() async {
     if (_formKey.currentState.validate()) {
       try {
-        var res =
-            await apiProvider.doLogin(_crtlEmail.text, _crtlPassword.text,_ctrlIp.text);
+        var res = await apiProvider.doLogin(
+            _crtlEmail.text, _crtlPassword.text, _ctrlIp.text);
         if (res.statusCode == 200) {
           var jsonRes = json.decode(res.body);
           var token = jsonRes['token'];
           print(token);
           // TOKEN DA SALVARE NEGLI SHARED PREF
+          Scaffold.of(context).showSnackBar(success);
 
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
+          /*Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomePage()));*/
         } else {
-          print(res.statusCode);
+          Scaffold.of(context).showSnackBar(error);
         }
       } catch (err) {
         print(err);
+        Scaffold.of(context).showSnackBar(serverError);
       }
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final heigth = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.blue[300],
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 50.0, left: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-
-                Text("FilmsNetwork",
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
-                      fontSize: 20,
-                      color: accentColor,
-                      fontFamily: 'Mont',
-                    )),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Text("All the cinema in your pocket!",
-                      textAlign: TextAlign.center,
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: heigth / 14, left: width / 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "LoginFlutter",
                       style: new TextStyle(
-                        fontSize: 15,
-                        color: accentColor,
-                        fontFamily: 'calibre',
-                      )),
-                ),
-                Container(
-                  color: Colors.transparent,
-                  child: SizedBox(
-
-                  )
-                ),
-                Container(
-
-                  padding: new EdgeInsets.only(top: 150, left: 50, right: 50),
-                  child: new Theme(
-                    data: new ThemeData(
-                      primaryColor: accentColor,
-                      primaryColorDark: backgroundColor,
+                          fontFamily: 'Mont',
+                          fontSize: 20,
+                          color: Colors.white),
                     ),
-
-                    child: Card(
-                      elevation: 4.0,
-                      color: Colors.white,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0)),
-                      child: Container(
-                        padding: new EdgeInsets.all(30.0),
-                        child: new Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  new TextFormField(
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Inserisci email!';
-                                      }
-                                    },
-                                    controller: _crtlEmail,
-                                    style: TextStyle(
-                                        fontSize: 15.0, color: accentColor),
-                                    decoration: new InputDecoration(
-                                      labelText: "Inserisci Email",
-                                      fillColor: accentColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
-                              child: new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  new Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        new TextFormField(
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Inserisci password!';
-                                            }
-                                          },
-                                          controller: _crtlPassword,
-                                          obscureText: true,
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              color: accentColor),
-                                          decoration: new InputDecoration(
-                                            labelText: "Inserisci Password",
-                                            fillColor: accentColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
-                              child: new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  new Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        new TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Inserisci ip!';
-                                            }
-                                          },
-                                          controller: _ctrlIp,
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              color: accentColor),
-                                          decoration: new InputDecoration(
-                                            labelText: "Inserisci IP",
-                                            fillColor: accentColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                                  ),
-                            
-                                  Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 16.0),
-                                      child: ButtonTheme(
-                                        minWidth: 200.0,
-                                        height: 50.0,
-                                        child: RaisedButton(
-                                            onPressed: () => doLogin(),
-                                            child: const Text('LOGIN',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontFamily: 'calibre',
-                                                    letterSpacing: 1.5,
-                                                    fontSize: 20)),
-                                            color: accentColor,
-                                            shape: new RoundedRectangleBorder(
-                                                borderRadius:
-                                                    new BorderRadius.circular(
-                                                        10.0))),
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 16.0),
-                                      child:
-                                      new FlatButton(
-                                        onPressed: () => Navigator.push(context,  MaterialPageRoute(builder: (context) => Register())),
-                                        child: Text("Non sei registrato? Clicca qui",
-                                              textAlign: TextAlign.center,
-                                              style: new TextStyle(
-                                                fontSize: 13,
-                                                color: accentColor,
-                                                fontFamily: 'calibre',
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              )), 
-                                      )
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: heigth / 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Center(
+                      child: Image.asset(
+                        'assets/images/popcorn.png',
+                        scale: 5.0,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(width / 7),
+                child: Container(
+                  width: width,
+                  height: heigth,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                        child: Theme(
+                          data: new ThemeData(
+                            primaryColor: accentColor,
+                            primaryColorDark: Colors.red,
+                          ),
+                          child: TextField(
+                            controller: _crtlEmail,
+                            style:
+                                TextStyle(fontSize: 20.0, color: accentColor),
+                            decoration: new InputDecoration(
+                                labelText: "Email",
+                                fillColor: accentColor,
+                                prefixIcon: const Icon(
+                                  Icons.email,
+                                  color: Color(0xFF08498A),
+                                ),
+                                border: new OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                    borderSide:
+                                        new BorderSide(color: Colors.white))),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+                        child: Theme(
+                          data: new ThemeData(
+                            primaryColor: accentColor,
+                            primaryColorDark: Colors.red,
+                          ),
+                          child: TextField(
+                            controller: _crtlPassword,
+                            obscureText: true,
+                            style:
+                                TextStyle(fontSize: 20.0, color: accentColor),
+                            decoration: new InputDecoration(
+                                labelText: "Password",
+                                fillColor: accentColor,
+                                prefixIcon: const Icon(
+                                  Icons.lock,
+                                  color: Color(0xFF08498A),
+                                ),
+                                border: new OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                    borderSide:
+                                        new BorderSide(color: Colors.white))),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+                        child: Theme(
+                          data: new ThemeData(
+                            primaryColor: accentColor,
+                            primaryColorDark: Colors.red,
+                          ),
+                          child: ButtonTheme(
+                            minWidth: width,
+                            height: 50.0,
+                            child: RaisedButton(
+                                onPressed: () => doLogin(),
+                                child: const Text('LOGIN',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'calibre',
+                                        letterSpacing: 1.5,
+                                        fontSize: 20)),
+                                color: accentColor,
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0))),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: new FlatButton(
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Register())),
+                              child: Text("Non sei registrato? Clicca qui",
+                                  textAlign: TextAlign.center,
+                                  style: new TextStyle(
+                                    fontSize: 13,
+                                    color: accentColor,
+                                    fontFamily: 'calibre',
+                                    decoration: TextDecoration.underline,
+                                  )),
+                            )),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
-    
   }
 }

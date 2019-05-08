@@ -18,7 +18,7 @@ const passportJwtStrategy = require('./auth/strategies/passportJwt');
 
 
 
-const hostname = process.env.hostname;
+const hostname = process.env.HOSTNAME;
 const port = process.env.PORT;
 const distPath = path.join(__dirname, 'dist');
 
