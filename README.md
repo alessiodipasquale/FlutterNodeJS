@@ -1,5 +1,7 @@
 # Login App with Flutter using NodeJs, Sequelize, HttpRequest, Express, BCrypt, Jwt and much more!
 
+<img src="https://github.com/alessiodipasquale/FlutterNodeJS/blob/master/screenshots/WhatsApp%20Image%202019-05-18%20at%2019.21.19.jpeg" width="400">
+
 This code is a simply test of comunication between Flutter and a Node server.
 
 -You need to create an empty local database and a user with previleges and you can insert your database name and username into **server/development.env** as **MYSQL_URI**
@@ -15,6 +17,7 @@ This code is a simply test of comunication between Flutter and a Node server.
 -Now you can test the app. Go to register, create a new user and login. 
 
 Have fun! :)
+
 
  
 
