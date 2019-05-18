@@ -3,18 +3,18 @@ const { Film, User } = require ('./models')
 const seed = async () => {
     let users = [
         User.create({
-            name: 'Alessio',
-            surname: 'Di Pasquale',
+            name: 'username1',
+            surname: 'surname1',
             birthDate: new Date(2000, 12, 2),
-            email: 'alessio.dipasquale.dev@gmail.com',
+            email: 'email1@gmail.com',
             password: 'admin1',
             isAdmin: true
         }),
         User.create({
-            name: 'Samuele',
-            surname: 'Simone',
+            name: 'username2',
+            surname: 'surname2',
             birthDate: new Date(2001, 3, 10),
-            email: 'samuele.simone.dev@gmail.com',
+            email: 'email2@gmail.com',
             password: 'admin2',
             isAdmin: true
         })];
@@ -22,11 +22,11 @@ const seed = async () => {
     let films = [
         await Film.create({
             name: 'Titanic',
-            description: 'Affondano'
+            description: 'They sink.'
         }),
         await Film.create({
             name: 'Avengers',
-            description: 'IronMan muore'
+            description: 'IronMan death.'
         }),
 
     ];
