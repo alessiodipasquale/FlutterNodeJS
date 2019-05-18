@@ -1,5 +1,5 @@
 {
-  "name": "filmsnetwork",
+  "name": "loginflutter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alessiodipasquale/FilmsNetwork.git"
+    "url": "git+https://github.com/alessiodipasquale/LoginFlutter.git"
   },
   "author": "Alessio Di Pasquale, Samuele Simone",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alessiodipasquale/FilmsNetwork/issues"
+    "url": "https://github.com/alessiodipasquale/LoginFlutter/issues"
   },
-  "homepage": "https://github.com/alessiodipasquale/FilmsNetwork#readme",
+  "homepage": "https://github.com/alessiodipasquale/LoginFlutter#readme",
   "dependencies": {
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",

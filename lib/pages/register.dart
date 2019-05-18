@@ -13,7 +13,7 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FilmsNetwork',
+      title: 'LoginFlutter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: backgroundColor,
@@ -38,10 +38,10 @@ class BodyWidgetState extends State<BodyWidget> {
   TextEditingController _crtlEmail = TextEditingController();
   TextEditingController _crtlPassword = TextEditingController();
   TextEditingController _ctrlIp = TextEditingController();
-  final success = SnackBar(content: Text('Login riuscito!'));
-  final error = SnackBar(content: Text('Credenziali errate!'));
-  final serverError = SnackBar(content: Text('Errore nel server!'));
-  final ipError = SnackBar(content: Text('Devi inserire un IP! Vai in impostazioni!'));
+  final success = SnackBar(content: Text('Login succeded!'));
+  final error = SnackBar(content: Text('Wrong email or password!'));
+  final serverError = SnackBar(content: Text('Can\'t connect to the server!'));
+  final ipError = SnackBar(content: Text('You must insert an IP! Go to settings'));
 
   final _formKey = GlobalKey<FormState>();
 
@@ -140,7 +140,7 @@ class BodyWidgetState extends State<BodyWidget> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Inserisci nome!';
+                                  return 'Insert a name!';
                                 }
                               },
                               controller: _crtlName,
@@ -171,7 +171,7 @@ class BodyWidgetState extends State<BodyWidget> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Inserisci cognome!';
+                                  return 'Insert a surname!';
                                 }
                               },
                               controller: _crtlSurname,
@@ -202,7 +202,7 @@ class BodyWidgetState extends State<BodyWidget> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Inserisci email!';
+                                  return 'Insert an email!';
                                 }
                               },
                               controller: _crtlEmail,
@@ -233,7 +233,7 @@ class BodyWidgetState extends State<BodyWidget> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Inserisci password!';
+                                  return 'Insert a password!';
                                 }
                               },
                               controller: _crtlPassword,
@@ -289,7 +289,7 @@ class BodyWidgetState extends State<BodyWidget> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Login())),
-                                child: Text("Non sei registrato? Clicca qui",
+                                child: Text("Already registered? Login!",
                                     textAlign: TextAlign.center,
                                     style: new TextStyle(
                                       fontSize: 13,

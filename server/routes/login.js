@@ -4,8 +4,6 @@ const { authErrorString } = require('../config/values');
 
 const login = async (req, res) => {
 
-    console.log(req.body);
-
     const email = req.body.email;
 
     const clearTextPassword = req.body.password;

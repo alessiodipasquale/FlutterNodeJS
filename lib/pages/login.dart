@@ -6,7 +6,7 @@ import './../colors/colors.dart';
 import './../api_provider.dart';
 import './../pages/home.dart';
 import '../pages/register.dart';
-import 'package:FilmsNetwork/pages/settings.dart';
+import 'package:LoginFlutter/pages/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatelessWidget {
@@ -16,7 +16,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FilmsNetwork',
+      title: 'LoginFlutter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: backgroundColor,
@@ -42,10 +42,10 @@ class BodyWidgetState extends State<BodyWidget> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final success = SnackBar(content: Text('Login riuscito!'));
-  final error = SnackBar(content: Text('Credenziali errate!'));
-  final serverError = SnackBar(content: Text('Errore di connessione al server!'));
-  final ipError = SnackBar(content: Text('Devi inserire un IP! Vai in impostazioni!'));
+  final success = SnackBar(content: Text('Login succeded!'));
+  final error = SnackBar(content: Text('Wrong email or password!'));
+  final serverError = SnackBar(content: Text('Can\'t connect to the server!'));
+  final ipError = SnackBar(content: Text('You must insert an IP! Go to settings'));
 
   ApiProvider apiProvider = ApiProvider();
 
@@ -164,7 +164,7 @@ class BodyWidgetState extends State<BodyWidget> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Inserisci email!';
+                                  return 'Insert an Email!';
                                 }
                               },
                               controller: _crtlEmail,
@@ -196,7 +196,7 @@ class BodyWidgetState extends State<BodyWidget> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Inserisci password!';
+                                  return 'Insert a Password!';
                                 }
                               },
                               controller: _crtlPassword,
@@ -231,7 +231,7 @@ class BodyWidgetState extends State<BodyWidget> {
                               height: 50.0,
                               child: RaisedButton(
                                   onPressed: () => doLogin(),
-                                  child: const Text('SIGN IN',
+                                  child: const Text('LOGIN',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -250,7 +250,7 @@ class BodyWidgetState extends State<BodyWidget> {
                               padding: const EdgeInsets.only(top: 16.0),
                               child: new FlatButton(
                                 onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Register())),
-                                child: Text("Non sei registrato? Clicca qui",
+                                child: Text("Are you not register? Sign up",
                                     textAlign: TextAlign.center,
                                     style: new TextStyle(
                                       fontSize: 13,

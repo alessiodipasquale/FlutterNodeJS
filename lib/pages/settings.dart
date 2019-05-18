@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:FilmsNetwork/colors/colors.dart';
+import 'package:LoginFlutter/colors/colors.dart';
 import './../api_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
@@ -12,7 +12,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FilmsNetwork',
+      title: 'LoginFlutter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: backgroundColor,
@@ -114,7 +114,7 @@ class _WidgetCreationState extends State<WidgetCreation> {
 
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Inserisci ip!';
+                                      return 'Insert an IP!';
                                     }
                                   },
 
@@ -170,6 +170,7 @@ class _WidgetCreationState extends State<WidgetCreation> {
                               ),
                             ),
                           ),
+                          new Center(child: new Text("Creators:\n\nAlessio Di Pasquale (@alessiodipa10)\n Samuele Simone (@samuelesimone)"))
                         ],
                       ),
                     ),
